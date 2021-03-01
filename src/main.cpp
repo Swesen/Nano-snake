@@ -1,67 +1,56 @@
-#include <Arduino.h>
-#include <main.h>
+#include "main.h"
+#include "snake.h"
+#include "display.h"
+#include "vector2d.h"
 
+Vector2D foodPosition;
+Snake snake;
+Display screen;
 
-void setup() {
-  // put your setup code here, to run once:
+void SetupButtons();
+
+void setup()
+{
+  // initialize the screen.
+  screen.Start();
+
+  SetupButtons();
+
+  // create snake at center position
+  Vector2D startPosition = Vector2D(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+  Vector2D startDirection = Vector2D(0, 1);
+  snake.Start(4, startDirection, startPosition);
+
+  delay(2000);
+  screen.Clear();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
+  DrawFrame();
+
+  delay(500);
 }
 
-struct Vector2D
+void SetupButtons()
 {
-public:
-    int X, Y;
+  // set pins D3-D6 to input with internal pullup
+  for (unsigned char i = 3; i <= 6; i++)
+  {
+    pinMode(i, INPUT_PULLUP);
+  }
+}
 
-    Vector2D()
-    {
-        X, Y = 0;
-    }
+void DrawFrame(){
+  unsigned char lengthOfArray = snake.bodySize + 1;
+  Vector2D pixelsToDraw[lengthOfArray];
 
-    Vector2D(int x, int y)
-    {
-        X = x;
-        Y = y;
-    }
+  for (unsigned char i = 0; i < snake.bodySize; i++)
+  {
+    pixelsToDraw[i] = snake.body[i];
+  }
 
-    Vector2D operator*(int i){
-        return Vector2D(X * i, Y * i);
-    }
+  pixelsToDraw[snake.bodySize] = foodPosition;
 
-    Vector2D operator-(Vector2D b){
-        return Vector2D(X - b.X, Y - b.Y);
-    }
-
-    Vector2D operator+(Vector2D b){
-        return Vector2D(X + b.X, Y + b.Y);
-    }
-
-
-};
-
-struct Snake
-{
-    Vector2D direction;
-    Vector2D body[255];
-    short int bodySize;
-
-    Snake(short int startSize, Vector2D startDirection, Vector2D startPosition)
-    {
-        direction = startDirection;
-        bodySize = startSize;
-        for (short int i = 0; i < bodySize; i++)
-        {
-            body[i] = startPosition - (startDirection * i);
-        }
-    }
-
-    void Move(){
-        for (short int i = bodySize - 1; i > 0; i--)
-        {
-            body[i] = body[i - 1];
-        }
-        
-    }
-};
+  screen.DrawGameFrame(pixelsToDraw, lengthOfArray);
+}
