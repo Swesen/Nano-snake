@@ -46,22 +46,10 @@ void SetupButtons()
 {
   unsigned char buttonPins[4] = {UP, DOWN, LEFT, RIGHT};
 
-  unsigned char minPin = buttonPins[0];
-  for (unsigned char i = 1; i < 4; i++)
+  // set pins minPin to maxPin to input with internal pullup
+  for (unsigned char i = 0; i < 4; i++)
   {
-    minPin = (minPin < buttonPins[i] ? minPin : buttonPins[i]);
-  }
-
-  unsigned char maxPin = buttonPins[0];
-  for (unsigned char i = 1; i < 4; i++)
-  {
-    maxPin = (maxPin > buttonPins[i] ? maxPin : buttonPins[i]);
-  }
-
-  // set pins D3-D6 to input with internal pullup
-  for (unsigned char i = minPin; i <= maxPin; i++)
-  {
-    pinMode(i, INPUT_PULLUP);
+    pinMode(buttonPins[i], INPUT_PULLUP);
   }
 }
 
