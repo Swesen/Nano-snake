@@ -2,6 +2,7 @@
 #define DISPLAY_H
 
 #include "vector2d.h"
+#include "main.h"
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
@@ -15,6 +16,6 @@ public:
     void Start();
     void Clear();
     void DrawFrame(Vector2D pixles[], unsigned char length);
-    void DrawEndScreen();
+    void DrawEndScreen(int score);
 };
 #endif

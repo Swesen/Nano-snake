@@ -1,5 +1,7 @@
 #include "logo.h"
+#include "snake.h"
 #include "display.h"
+#include <Arduino.h>
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -40,12 +42,15 @@ void Display::DrawFrame(Vector2D pixles[], unsigned char length)
     display.display();
 }
 
-void Display::DrawEndScreen() 
+void Display::DrawEndScreen(int score)
 {
     display.clearDisplay();
     display.setTextSize(2);
     display.setTextColor(1);
     display.setCursor(12, SCREEN_HEIGHT / 2 - 12);
-    display.println("Game Over");
+    display.print("Game Over");
+    display.setTextSize(1);
+    display.setCursor(40, SCREEN_HEIGHT / 2 + 4);
+    display.print("Score: " + String(score));
     display.display();
 }

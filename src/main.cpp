@@ -9,7 +9,7 @@ Snake snake;
 Display screen;
 
 // time between frame updates
-unsigned int updateInterval = 400;
+unsigned int updateInterval = 200;
 
 unsigned char buttonPins[4] = {UP, DOWN, LEFT, RIGHT};
 
@@ -170,7 +170,7 @@ bool CheckCollition()
 
 void EndGame()
 {
-  screen.DrawEndScreen();
+  screen.DrawEndScreen(snake.bodySize);
   while (true)
   {
   }

@@ -1,5 +1,4 @@
 #include "snake.h"
-#include "main.h"
 
 // Snake implementations
 void Snake::Start(unsigned char startSize, InputDirection startDirection, Vector2D startPosition)
@@ -27,8 +26,7 @@ void Snake::AddLength()
   bodySize++;
 }
 
-
-bool Snake::IsBody(Vector2D position) 
+bool Snake::IsBody(Vector2D position)
 {
   for (unsigned char i = 0; i < bodySize; i++)
   {
