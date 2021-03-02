@@ -15,6 +15,7 @@ unsigned char buttonPins[4] = {UP, DOWN, LEFT, RIGHT};
 
 void setup()
 {
+  randomSeed(analogRead(0));
   // initialize the screen.
   screen.Start();
 
@@ -25,10 +26,10 @@ void setup()
   InputDirection startDirection = Right;
   snake.Start(4, startDirection, startPosition);
 
-  delay(2000);
+  delay(1000);
   screen.Clear();
 
-  // spawn food
+  SpawnFood();
 }
 
 void loop()
@@ -114,4 +115,25 @@ Vector2D Direction(InputDirection input)
     // this shouldn't be possible
     return Vector2D();
   }
+}
+
+void SpawnFood()
+{
+  Vector2D newFoodPosition;
+  bool validNewPosition = true;
+  do
+  {
+    newFoodPosition.X = random(1, SCREEN_WIDTH);
+    newFoodPosition.Y = random(1, SCREEN_HEIGHT);
+
+    for (unsigned char i = 0; i < snake.bodySize; i++)
+    {
+      if (newFoodPosition == snake.body[i])
+      {
+        validNewPosition = false;
+      }
+    }
+
+  } while (!validNewPosition);
+  foodPosition = newFoodPosition;
 }

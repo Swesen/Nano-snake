@@ -9,7 +9,8 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 void Display::Start()
 {
-    while (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C));
+    while (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
+        ;
 
     // flip display 180 degrees
     display.setRotation(2);
@@ -21,7 +22,8 @@ void Display::Start()
     display.display();
 }
 
-void Display::Clear(){
+void Display::Clear()
+{
     display.clearDisplay();
     display.display();
 }
@@ -29,11 +31,11 @@ void Display::Clear(){
 void Display::DrawFrame(Vector2D pixles[], unsigned char length)
 {
     display.clearDisplay();
-    
+    display.drawRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 1);
     for (unsigned char i = 0; i < length; i++)
     {
         display.drawPixel(pixles[i].X, pixles[i].Y, 1);
     }
-    
+
     display.display();
 }
