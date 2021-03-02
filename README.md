@@ -1,4 +1,5 @@
 # Nano-snake
+![Gif of nano snake running](https://raw.githubusercontent.com/Swesen/Nano-snake/master/NanoSnake.gif)
 
 I was inspired by a class group project and the start of my IOT class to run the game of snake on an arduino nano.
 
