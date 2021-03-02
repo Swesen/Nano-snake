@@ -6,7 +6,6 @@
 class Snake
 {
 public:
-    InputDirection currentDirection;
     Vector2D direction;
     Vector2D body[255];
     unsigned char bodySize;
@@ -14,6 +13,7 @@ public:
     void Start(unsigned char startSize, InputDirection startDirection, Vector2D startPosition);
     void Move();
     void AddLength();
+    bool IsBody(Vector2D position);
 };
 
 #endif

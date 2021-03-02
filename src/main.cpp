@@ -21,22 +21,20 @@ void setup()
 
   SetupButtons();
 
-  // create snake at center position
-  Vector2D startPosition = Vector2D(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-  InputDirection startDirection = Right;
-  snake.Start(4, startDirection, startPosition);
-
   delay(1000);
   screen.Clear();
 
-  SpawnFood();
+  NewGame();
 }
 
 void loop()
 {
   unsigned long timer = millis();
 
-  // check collition
+  if (CheckCollition())
+  {
+    EndGame();
+  }
 
   snake.Move();
 
@@ -52,6 +50,15 @@ void SetupButtons()
   {
     pinMode(buttonPins[i], INPUT_PULLUP);
   }
+}
+
+void NewGame()
+{
+  Vector2D startPosition = Vector2D(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+  InputDirection startDirection = Right;
+  snake.Start(4, startDirection, startPosition);
+
+  SpawnFood();
 }
 
 void UpdateScreen()
@@ -128,7 +135,7 @@ void SpawnFood()
 
     for (unsigned char i = 0; i < snake.bodySize; i++)
     {
-      if (newFoodPosition == snake.body[i])
+      if (newFoodPosition == snake.body[i] || newFoodPosition == foodPosition)
       {
         validNewPosition = false;
       }
@@ -136,4 +143,35 @@ void SpawnFood()
 
   } while (!validNewPosition);
   foodPosition = newFoodPosition;
+}
+
+bool CheckCollition()
+{
+  Vector2D nextPosition = snake.body[0] + snake.direction;
+
+  // check if food was hit
+  if (nextPosition == foodPosition)
+  {
+    snake.AddLength();
+    SpawnFood();
+  }
+  // check if border was hit
+  else if (nextPosition.X <= 0 || nextPosition.Y <= 0 || nextPosition.X >= SCREEN_WIDTH || nextPosition.Y >= SCREEN_HEIGHT)
+  {
+    return true;
+  }
+  // check if self was hit
+  else if (snake.IsBody(nextPosition))
+  {
+    return true;
+  }
+  return false;
+}
+
+void EndGame()
+{
+  screen.DrawEndScreen();
+  while (true)
+  {
+  }
 }

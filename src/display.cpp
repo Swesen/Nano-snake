@@ -39,3 +39,13 @@ void Display::DrawFrame(Vector2D pixles[], unsigned char length)
 
     display.display();
 }
+
+void Display::DrawEndScreen() 
+{
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setTextColor(1);
+    display.setCursor(12, SCREEN_HEIGHT / 2 - 12);
+    display.println("Game Over");
+    display.display();
+}

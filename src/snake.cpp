@@ -26,3 +26,16 @@ void Snake::AddLength()
 {
   bodySize++;
 }
+
+
+bool Snake::IsBody(Vector2D position) 
+{
+  for (unsigned char i = 0; i < bodySize; i++)
+  {
+    if (position == body[i])
+    {
+      return true;
+    }
+  }
+  return false;
+}

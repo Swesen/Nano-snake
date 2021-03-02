@@ -15,5 +15,6 @@ public:
     void Start();
     void Clear();
     void DrawFrame(Vector2D pixles[], unsigned char length);
+    void DrawEndScreen();
 };
 #endif
