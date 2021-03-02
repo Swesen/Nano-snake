@@ -46,7 +46,7 @@ void loop()
 
 void SetupButtons()
 {
-  // set pins minPin to maxPin to input with internal pullup
+  // set pins to input with internal pullup
   for (unsigned char i = 0; i < 4; i++)
   {
     pinMode(buttonPins[i], INPUT_PULLUP);
@@ -79,7 +79,7 @@ void ReadButtons(unsigned long timer, int updateInterval)
     {
       if (!digitalRead(buttonPins[i]))
       {
-        newInputDirection = Direction(static_cast<InputDirection>(i));
+        newInputDirection = Direction(static_cast<InputDirection>(buttonPins[i]));
         break;
       }
     }
@@ -100,13 +100,18 @@ Vector2D Direction(InputDirection input)
   {
   case Up:
     return Vector2D(0, -1);
+
   case Down:
     return Vector2D(0, 1);
+
   case Left:
     return Vector2D(-1, 0);
+
   case Right:
     return Vector2D(1, 0);
+
   default:
+    // this shouldn't be possible
     return Vector2D();
   }
 }
