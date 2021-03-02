@@ -1,13 +1,14 @@
 #include "snake.h"
+#include "main.h"
 
 // Snake implementations
-void Snake::Start(unsigned char startSize, Vector2D startDirection, Vector2D startPosition)
+void Snake::Start(unsigned char startSize, InputDirection startDirection, Vector2D startPosition)
 {
-  direction = startDirection;
+  direction = Direction(startDirection);
   bodySize = startSize;
   for (unsigned char i = 0; i < bodySize; i++)
   {
-    body[i] = startPosition - (startDirection * i);
+    body[i] = startPosition - (direction * i);
   }
 }
 

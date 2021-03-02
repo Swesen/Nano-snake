@@ -27,3 +27,13 @@ Vector2D Vector2D::operator+(Vector2D b)
 {
   return Vector2D(X + b.X, Y + b.Y);
 }
+
+bool Vector2D::operator==(Vector2D b) 
+{
+  return X == b.X && Y == b.Y;
+}
+
+bool Vector2D::operator!=(Vector2D b) 
+{
+  return X != b.X || Y != b.Y;
+}

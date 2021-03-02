@@ -14,6 +14,6 @@ class Display
 public:
     void Start();
     void Clear();
-    void DrawGameFrame(Vector2D pixles[], unsigned char length);
+    void DrawFrame(Vector2D pixles[], unsigned char length);
 };
 #endif

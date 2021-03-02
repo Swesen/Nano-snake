@@ -26,8 +26,10 @@ void Display::Clear(){
     display.display();
 }
 
-void Display::DrawGameFrame(Vector2D pixles[], unsigned char length)
+void Display::DrawFrame(Vector2D pixles[], unsigned char length)
 {
+    display.clearDisplay();
+    
     for (unsigned char i = 0; i < length; i++)
     {
         display.drawPixel(pixles[i].X, pixles[i].Y, 1);

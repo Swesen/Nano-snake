@@ -1,6 +1,8 @@
 #ifndef VECTOR2D_H
 #define VECTOR2D_H
 
+#include "pins.h"
+
 struct Vector2D
 {
 public:
@@ -15,6 +17,18 @@ public:
     Vector2D operator-(Vector2D b);
 
     Vector2D operator+(Vector2D b);
+
+    bool operator==(Vector2D b);
+
+    bool operator!=(Vector2D b);
+};
+
+enum InputDirection
+{
+  Up = UP,
+  Down = DOWN,
+  Left = LEFT,
+  Right = RIGHT
 };
 
 #endif
