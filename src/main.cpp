@@ -11,6 +11,8 @@ Display screen;
 // time between frame updates
 unsigned int updateInterval = 400;
 
+unsigned char buttonPins[4] = {UP, DOWN, LEFT, RIGHT};
+
 void setup()
 {
   // initialize the screen.
@@ -44,8 +46,6 @@ void loop()
 
 void SetupButtons()
 {
-  unsigned char buttonPins[4] = {UP, DOWN, LEFT, RIGHT};
-
   // set pins minPin to maxPin to input with internal pullup
   for (unsigned char i = 0; i < 4; i++)
   {
@@ -75,9 +75,9 @@ void ReadButtons(unsigned long timer, int updateInterval)
   do
   {
     // read all pins for input
-    for (unsigned char i = Up; i <= Right; i++)
+    for (unsigned char i = 0; i < 4; i++)
     {
-      if (!digitalRead(i))
+      if (!digitalRead(buttonPins[i]))
       {
         newInputDirection = Direction(static_cast<InputDirection>(i));
         break;
